@@ -3,24 +3,27 @@ from netaddr import *
 
 def dispach_address(ips):
     result = []
-    if "-" in ips:
-        # 192.168.1.1-10
-        temp_ips = ips.split("-")
-        temp_ips[0]=temp_ips[0].split(".")
-        for item in range(int(temp_ips[0][3]),int(temp_ips[1])+1):
-            result.append(f"{temp_ips[0][0]}.{temp_ips[0][1]}.{temp_ips[0][2]}.{item}")
-    elif "/" in ips :
-        net = IPNetwork('192.0.2.16/29')
-        for item in net:
-            result.append(str(item))
+    for ip_item in ips.split(","):
+        if "-" in ip_item:
+            # 192.168.1.1-10
+            temp_ips = ip_item.split("-")
+            temp_ips[0]=temp_ips[0].split(".")
+            for item in range(int(temp_ips[0][3]),int(temp_ips[1])+1):
+                print(f"{temp_ips[0][0]}.{temp_ips[0][1]}.{temp_ips[0][2]}.{item}")
+                result.append(f"{temp_ips[0][0]}.{temp_ips[0][1]}.{temp_ips[0][2]}.{item}")
+        elif "/" in ip_item :
+            net = IPNetwork('192.0.2.16/29')
+            for item in net:
+                result.append(str(item))
 
-    else:
-        result.append(ips)
+        else:
+            result.append(ip_item)
 
     return result
 
 def dispach_ports(ports):
     result = []
+    ports=str(ports)
     for item in ports.split(","):
         if "-" in item:
             for port in range(int(item.split("-")[0]),int(item.split("-")[1])+1):
