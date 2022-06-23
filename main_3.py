@@ -11,8 +11,8 @@ def dispach_address(ips):
             for item in range(int(temp_ips[0][3]),int(temp_ips[1])+1):
                 result.append(f"{temp_ips[0][0]}.{temp_ips[0][1]}.{temp_ips[0][2]}.{item}")
         elif "/" in ip_item :
-            net = IPNetwork('192.0.2.16/29')
-            for item in net:
+            net = IPNetwork(ip_item)
+            for item in net.iter_hosts():
                 result.append(str(item))
 
         else:
